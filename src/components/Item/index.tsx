@@ -1,7 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, FC } from 'react';
 import ItemNameInput from '../ItemNameInput';
 
-const Item = ({ name, id, height, isCompleted, toggleItem, deleteItem, editItem }) => {
+interface IItem {
+  name: string;
+  id: number;
+  isCompleted: boolean;
+  toggleItem: () => void;
+  deleteItem: () => void;
+  editItem: (id: number, name: string) => void;
+}
+
+const Item: FC<IItem> = ({ name, id, isCompleted, toggleItem, deleteItem, editItem }) => {
   const [ isEditing, setEditing ] = useState(false);
   const toggleEdit = () => setEditing(!isEditing);
 
@@ -13,12 +22,11 @@ const Item = ({ name, id, height, isCompleted, toggleItem, deleteItem, editItem 
     <ItemNameInput
       id={id}
       name={name}
-      height={height}
       editItem={editItem}
       toggleEdit={toggleEdit}
     />
   ) : (
-    <div className="item-name" onDoubleClick={!isCompleted ? toggleEdit : null}>
+    <div className="item-name" onDoubleClick={!isCompleted ? toggleEdit : undefined}>
       <h1>{name}</h1>
     </div>
   )
