@@ -2,10 +2,10 @@ import React, { useLayoutEffect, useRef, FC, FocusEvent, KeyboardEvent } from 'r
 import isNull from 'lodash/isNull';
 
 interface IItemNameInput {
-  id: number,
+  id: string,
   name: string,
   toggleEdit: () => void;
-  editItem: (id: number, name: string) => void;
+  editItem: (name: string) => void;
 }
 
 const ItemNameInput: FC<IItemNameInput> = ({ id, name, toggleEdit, editItem }) => {
@@ -14,14 +14,14 @@ const ItemNameInput: FC<IItemNameInput> = ({ id, name, toggleEdit, editItem }) =
     const { value } = e.target as HTMLTextAreaElement;
     if(value && e.key === 'Enter'){
       toggleEdit();
-      editItem(id, value)
+      editItem(value)
     }
   };
 
   const handleBlur = (e: FocusEvent) => {
     const { value } = e.target as HTMLTextAreaElement;
     toggleEdit();
-    editItem(id, value)
+    editItem(value);
   };
 
   useLayoutEffect(() => {

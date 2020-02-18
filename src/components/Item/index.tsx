@@ -1,22 +1,22 @@
 import React, { useState, FC } from 'react';
 import ItemNameInput from '../ItemNameInput';
+import { observer } from "mobx-react-lite";
+import cx from 'classnames';
 
 interface IItem {
   name: string;
-  id: number;
+  id: string;
   isCompleted: boolean;
   toggleItem: () => void;
   deleteItem: () => void;
-  editItem: (id: number, name: string) => void;
+  editItem: (name: string) => void;
 }
 
 const Item: FC<IItem> = ({ name, id, isCompleted, toggleItem, deleteItem, editItem }) => {
   const [ isEditing, setEditing ] = useState(false);
   const toggleEdit = () => setEditing(!isEditing);
-
-  let classes = isCompleted ? "item completed" : "item";
-
-  classes = isEditing ? `${classes} editing` : classes
+  
+  const className = cx('item', { completed: isCompleted  }, { editing: isEditing });
 
   const itemName = isEditing ? (
     <ItemNameInput
@@ -29,11 +29,11 @@ const Item: FC<IItem> = ({ name, id, isCompleted, toggleItem, deleteItem, editIt
     <div className="item-name" onDoubleClick={!isCompleted ? toggleEdit : undefined}>
       <h1>{name}</h1>
     </div>
-  )
+  );
 
   return(
     <div
-      className={classes}
+      className={className}
     >
       <div className="item-icon" onClick={toggleItem}>
         <i className="far fa-circle uncompleted"/>
@@ -48,6 +48,6 @@ const Item: FC<IItem> = ({ name, id, isCompleted, toggleItem, deleteItem, editIt
       </div>
     </div>
   )
-}
+};
 
-export default Item;
+export default observer(Item);
