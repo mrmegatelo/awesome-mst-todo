@@ -15,7 +15,7 @@
     "@types/react-dom": "^16.9.0",
     "@types/react-helmet": "^5.0.15",
     "classnames": "^2.2.6",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "mobx": "^5.15.4",
     "mobx-react-lite": "^1.5.2",
     "mobx-state-tree": "^3.15.0",
